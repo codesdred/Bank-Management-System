@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="button-container">
+    <button id="showTableBtn" class="button button-show-account">Show Account Data</button>
+    <button id="addAccountBtn" class="button button-add-account">Add Account</button>
+    <button id="deleteAccountBtn" class="button button-delete-account">Delete Account</button>
+    <button id="editAccountBtn" class="button button-edit-account">Edit Account</button>
+</div>
+
+    <div id="addAccountFormContainer" class="section" style="display: none;">
+        <form id="accountForm" class="add-account-form">
+            <label for="customerId">Customer ID:</label>
+            <input type="number" id="customerId" name="customerId" required><br>
+            <label for="accountType">Account Type:</label>
+            <select id="accountType" name="accountType">
+                <option value="Savings">Savings</option>
+                <option value="Checking">Checking</option>
+            </select><br>
+            <small class="instruction-text">Values: "Savings", "Checking"</small><br>
+            <label for="balance">Balance:</label>
+            <input type="number" id="balance" name="balance" min="0" required><br>
+            <small class="instruction-text">Must be >= 0</small><br>
+            <button type="submit">Add Account</button>
+        </form>
+    </div>
+
+    <div id="successMsgContainer" class="section" style="display: none;">
+        <p class="success-msg">Account added successfully!</p>
+    </div>
+
+    <div id="accountTableContainer" class="section account-table-container" style="display: none;">
+        <h1>Account Data</h1>
+        <table id="accountTable">
+            <thead>
+                <tr>
+                    <th>Account ID</th>
+                    <th>Customer ID</th>
+                    <th>Account Type</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody id="accountTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="accountDeleteTableContainer" class="section account-table-container" style="display: none;">
+        <h1>Delete Accounts</h1>
+        <table id="accountDeleteTable">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Account ID</th>
+                    <th>Customer ID</th>
+                    <th>Account Type</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody id="accountDeleteTableBody">
+            </tbody>
+        </table>
+        <button id="confirmDeleteBtn" style="display: none;">Confirm Delete</button>
+    </div>
+
+    <div id="accountEditTableContainer" class="section account-table-container" style="display: none;">
+        <h1>Edit Accounts</h1>
+        <table id="accountEditTable">
+            <thead>
+                <tr>
+                    <th>Account ID</th>
+                    <th>Customer ID</th>
+                    <th>Account Type</th>
+                    <th>Balance</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody id="accountEditTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="editModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Account</h2>
+            <form id="editAccountForm">
+                <input type="hidden" id="editAccountId">
+                <label for="editCustomerId">Customer ID:</label>
+                <input type="number" id="editCustomerId" required><br>
+                <label for="editAccountType">Account Type:</label>
+                <select id="editAccountType">
+                    <option value="Savings">Savings</option>
+                    <option value="Checking">Checking</option>
+                </select><br>
+                <small class="instruction-text">Values: "Savings", "Checking"</small><br>
+                <label for="editBalance">Balance:</label>
+                <input type="number" id="editBalance"  min="0" required><br>
+                <small class="instruction-text">Must be >= 0</small><br>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script_acc.js') }}"></script>
+{% endblock %}

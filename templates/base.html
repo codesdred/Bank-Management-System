@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            background-color: #333; /* Match header color */
+            color: #fff;
+        }
+
+        .navbar {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 15px 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-navbar {
+            background-color: #333; /* Match header color */
+            color: white;
+            padding: 20px 40px; /* Make footer bigger */
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-navbar div {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navbar -->
+    <nav>
+        <div><strong>SANJEEB DASH</strong></div>
+        <ul class="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/customers">Customers</a></li>
+            <li><a href="/accounts">Accounts</a></li>
+            <li><a href="/transactions">Transactions</a></li>
+            <li><a href="/analytics">Analytics</a></li>
+        </ul>
+        <div><strong>122EE0515</strong></div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        {% block content %} {% endblock %}
+    </div>
+
+    <!-- Footer Navbar -->
+    <div class="footer-navbar">
+        <div>Made with ❤️ by Sanjeeb</div>
+        <div>Tech Stacks Used: Flask, JavaScript, MySQL</div>
+        <div>Course: Database Management Systems Laboratory (CS2082)</div>
+        <div>Professor: Dr. S Asha</div>
+    </div>
+</body>
+</html>

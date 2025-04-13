@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="button-container">
+    <button id="showTransactionsTableBtn" class="button button-show-transaction">Show Transaction Data</button>
+    <button id="addTransactionBtn" class="button button-add-transaction">Add Transaction</button>
+    <button id="deleteTransactionBtn" class="button button-delete-transaction">Delete Transaction</button>
+    <button id="editTransactionBtn" class="button button-edit-transaction">Edit Transaction</button>
+</div>
+
+    <div id="addTransactionFormContainer" class="section" style="display: none;">
+        <form id="transactionForm" class="add-transaction-form">
+            <label for="accountId">Account ID:</label>
+            <input type="number" id="accountId" name="accountId" required><br>
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" min="0" required><br>
+            <small class="instruction-text">Must be >= 0</small><br>
+            <label for="transactionType">Transaction Type:</label>
+            <select id="transactionType" name="transactionType">
+                <option value="credit">Credit</option>
+                <option value="debit">Debit</option>
+            </select><br>
+            <small class="instruction-text">Values: "Credit", "Debit"</small><br>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required><br>
+            <button type="submit">Add Transaction</button>
+        </form>
+    </div>
+
+    <div id="successMsgContainer" class="section" style="display: none;">
+        <p class="success-msg">Transaction added successfully!</p>
+    </div>
+
+    <div id="transactionTableContainer" class="section transaction-table-container" style="display: none;">
+        <h1>Transaction Data</h1>
+        <table id="transactionTable">
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Account ID</th>
+                    <th>Amount</th>
+                    <th>Transaction Type</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="transactionTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="transactionDeleteTableContainer" class="section transaction-table-container" style="display: none;">
+        <h1>Delete Transactions</h1>
+        <table id="transactionDeleteTable">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Transaction ID</th>
+                    <th>Account ID</th>
+                    <th>Amount</th>
+                    <th>Transaction Type</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="transactionDeleteTableBody">
+            </tbody>
+        </table>
+        <button id="confirmDeleteBtn" style="display: none;">Confirm Delete</button>
+    </div>
+
+    <div id="transactionEditTableContainer" class="section transaction-table-container" style="display: none;">
+        <h1>Edit Transactions</h1>
+        <table id="transactionEditTable">
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Account ID</th>
+                    <th>Amount</th>
+                    <th>Transaction Type</th>
+                    <th>Date</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody id="transactionEditTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="editModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Transaction</h2>
+            <form id="editTransactionForm">
+                <input type="hidden" id="editTransactionId">
+                <label for="editAccountId">Account ID:</label>
+                <input type="number" id="editAccountId" required><br>
+                <label for="editAmount">Amount:</label>
+                <input type="number" id="editAmount"  min="0" required><br>
+                 <small class="instruction-text">Must be >= 0</small><br>
+                <label for="editTransactionType">Transaction Type:</label>
+                 <select id="editTransactionType">
+                    <option value="credit">Credit</option>
+                    <option value="debit">Debit</option>
+                </select><br>
+                <small class="instruction-text">Values: "Credit", "Debit"</small><br>
+                <label for="editDate">Date:</label>
+                <input type="date" id="editDate" required><br>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script_trans.js') }}"></script>
+{% endblock %}

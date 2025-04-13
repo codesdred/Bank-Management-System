@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Main content of the Home page -->
+    <div class="welcome-section">
+        <h1>Welcome to the Bank Management System</h1>
+        <p>Your one-stop solution for managing bank operations online.</p>
+        <div class="cta-buttons">
+            <a href="/customers" class="cta-btn">View Customers</a>
+            <a href="/accounts" class="cta-btn">View Accounts</a>
+            <a href="/transactions" class="cta-btn">View Transactions</a>
+        </div>
+    </div>
+
+    <!-- Cards section -->
+    <div class="cards-section">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-left">
+                <img src="{{ url_for('static', filename='images/image1.jpg') }}" alt="Image 1">
+            </div>
+            <div class="card-right">
+                <h2 style="font-size: 24px; font-weight: bold; color: #1e3d58; margin-bottom: 10px;">Seamless Banking Management Online</h2>
+                <p style="font-size: 16px; color: #555555;">Your one-stop solution for managing all banking operations online with ease and efficiency.</p>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-right">
+                <h2 style="font-size: 24px; font-weight: bold; color: #1e3d58; margin-bottom: 10px;">Effortless Data Management</h2>
+                <p style="font-size: 16px; color: #555555;">Easily manage customer, account, and transaction data at your fingertips. No hassle.</p>
+            </div>
+            <div class="card-left">
+                <img src="{{ url_for('static', filename='images/image2.jpg') }}" alt="Image 2">
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-left">
+                <img src="{{ url_for('static', filename='images/image3.jpg') }}" alt="Image 3">
+            </div>
+            <div class="card-right">
+                <h2 style="font-size: 24px; font-weight: bold; color: #1e3d58; margin-bottom: 10px;">Add Data Instantly with One Click</h2>
+                <p style="font-size: 16px; color: #555555;">Add new customer, account, or transaction data with a simple click, streamlining the process.</p>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="card-right">
+                <h2 style="font-size: 24px; font-weight: bold; color: #1e3d58; margin-bottom: 10px;">Easily Delete Data</h2>
+                <p style="font-size: 16px; color: #555555;">Quickly remove unnecessary or outdated data with our intuitive interface.</p>
+            </div>
+            <div class="card-left">
+                <img src="{{ url_for('static', filename='images/image4.jpg') }}" alt="Image 4">
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card">
+            <div class="card-left">
+                <img src="{{ url_for('static', filename='images/image5.jpg') }}" alt="Image 5">
+            </div>
+            <div class="card-right">
+                <h2 style="font-size: 24px; font-weight: bold; color: #1e3d58; margin-bottom: 10px;">Quickly Edit Your Data</h2>
+                <p style="font-size: 16px; color: #555555;">Edit existing data on the go, without any complicated steps, keeping everything up-to-date.</p>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card">
+            <div class="card-right">
+                <h2 style="font-size: 24px; font-weight: bold; color: #1e3d58; margin-bottom: 10px;">Advanced Analytics for AI</h2>
+                <p style="font-size: 16px; color: #555555;">Leverage artificial intelligence for in-depth analytics and insights, driving smarter decisions.</p>
+            </div>
+            <div class="card-left">
+                <img src="{{ url_for('static', filename='images/image6.jpg') }}" alt="Image 6">
+            </div>
+        </div>
+    </div>
+{% endblock %}

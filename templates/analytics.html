@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        /* Clean neon-style but professional */
+        h1, h2, label, p, select, button {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e0f7fa;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+        }
+
+        h1 {
+            font-size: 2.2em;
+            border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+        }
+
+        .analytics-options {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        select, button {
+            background-color: #101820;
+            color: #e0f7fa;
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            padding: 8px 12px;
+            font-size: 1em;
+            border-radius: 5px;
+            outline: none;
+            transition: 0.3s ease;
+        }
+
+        select:focus, button:hover {
+            border-color: rgba(0, 255, 255, 0.7);
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+            cursor: pointer;
+        }
+
+        #chart-container h2 {
+            font-size: 1.5em;
+            color: #e0f7fa;
+            text-shadow: 0 0 4px rgba(0, 255, 255, 0.2);
+        }
+
+        canvas {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
+
+    <h1>Analytics</h1>
+    <p>Welcome to the Analytics section of the Bank Management System!</p>
+
+    <div class="analytics-options">
+        <label for="analytics-select">Choose an Analytics Feature:</label>
+        <select id="analytics-select">
+            <option value="">Select an option</option>
+            <option value="customer_location_pie_chart">Customers & Locations</option>
+            <option value="account_type_bar_graph">Types of Accounts</option>
+            <option value="transaction_type_doughnut_chart">Types of Transactions</option>
+        </select>
+        <button id="generate-analytics">Generate</button>
+    </div>
+
+    <div id="chart-container" style="margin-top: 20px; display: none;">
+        <h2>Analytics Chart</h2>
+        <canvas id="myChart" width="400" height="200"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const analyticsSelect = document.getElementById('analytics-select');
+        const generateButton = document.getElementById('generate-analytics');
+        const chartContainer = document.getElementById('chart-container');
+        const chartCanvas = document.getElementById('myChart');
+        let myChart;
+
+        generateButton.addEventListener('click', () => {
+            const selectedOption = analyticsSelect.value;
+            chartContainer.style.display = 'block';
+            if (selectedOption === 'customer_location_pie_chart') {
+                loadCustomerLocationPieChart();
+            } else if (selectedOption === 'account_type_bar_graph') {
+                loadAccountTypeBarGraph();
+            } else if (selectedOption === 'transaction_type_doughnut_chart') {
+                loadTransactionTypeDoughnutChart();
+            } else if (selectedOption === '') {
+                chartContainer.style.display = 'none';
+                if (myChart) {
+                    myChart.destroy();
+                }
+            }
+        });
+
+        function loadCustomerLocationPieChart() {
+            fetch('/analytics/customer_locations')
+                .then(response => response.json())
+                .then(data => {
+                    const countryCounts = {};
+                    data.forEach(customer => {
+                        const country = customer.address.split(', ').pop();
+                        countryCounts[country] = (countryCounts[country] || 0) + 1;
+                    });
+
+                    const labels = Object.keys(countryCounts);
+                    const counts = Object.values(countryCounts);
+
+                    if (myChart) {
+                        myChart.destroy();
+                    }
+
+                    myChart = new Chart(chartCanvas.getContext('2d'), {
+                        type: 'pie',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Customers',
+                                data: counts,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.6)',
+                                    'rgba(54, 162, 235, 0.6)',
+                                    'rgba(255, 206, 86, 0.6)',
+                                    'rgba(75, 192, 192, 0.6)',
+                                    'rgba(153, 102, 255, 0.6)',
+                                    'rgba(255, 159, 64, 0.6)',
+                                    'rgba(199, 111, 222, 0.6)',
+                                    'rgba(100, 200, 150, 0.6)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(199, 111, 222, 1)',
+                                    'rgba(100, 200, 150, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Customer Distribution by Country',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching customer data:', error);
+                    alert('Failed to fetch customer data. Please check the server.');
+                });
+        }
+
+        function loadAccountTypeBarGraph() {
+            fetch('/analytics/account_types')
+                .then(response => response.json())
+                .then(data => {
+                    const accountTypeCounts = {};
+                    data.forEach(account => {
+                        accountTypeCounts[account.account_type] = (accountTypeCounts[account.account_type] || 0) + 1;
+                    });
+
+                    const labels = Object.keys(accountTypeCounts);
+                    const counts = Object.values(accountTypeCounts);
+
+                    if (myChart) {
+                        myChart.destroy();
+                    }
+
+                    myChart = new Chart(chartCanvas.getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Number of Accounts',
+                                data: counts,
+                                backgroundColor: [
+                                    'rgba(54, 162, 235, 0.6)',
+                                    'rgba(255, 206, 86, 0.6)'
+                                ],
+                                borderColor: [
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Account Type Distribution',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching account data:', error);
+                    alert('Failed to fetch account data. Please check the server.');
+                });
+        }
+
+        function loadTransactionTypeDoughnutChart() {
+            fetch('/analytics/transaction_types')
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.transaction_type);
+                    const counts = data.map(item => item.count);
+
+                    if (myChart) {
+                        myChart.destroy();
+                    }
+
+                    myChart = new Chart(chartCanvas.getContext('2d'), {
+                        type: 'doughnut',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Transaction Types',
+                                data: counts,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.6)',
+                                    'rgba(54, 162, 235, 0.6)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Transaction Type Distribution',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching transaction data", error);
+                    alert('Failed to fetch transaction data');
+                });
+        }
+    </script>
+{% endblock %}
