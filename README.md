@@ -36,7 +36,7 @@ The application is centered around three main data tables:
 ### 1. Our Website
 
 You can visit the deployed version of the project here:  
-[Website Link](https://your-website-link.com) *(replace with actual URL)*
+[Website Link](https://sanjeeb.pythonanywhere.com/)
 
 ### 2. Run Locally
 
@@ -44,7 +44,7 @@ Follow the steps below to set up and run the project locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/bank-management-system.git
+git clone https://github.com/codesdred/Bank-Management-System.git
 
 # Navigate to the project directory
 cd bank-management-system
