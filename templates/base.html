@@ -41,12 +41,64 @@
         .footer-navbar div {
             margin: 8px 0;
         }
+
+
+
+
+
+
+        .floating-github-button {
+            font-size: 20px;
+            font-weight: bold;
+            animation: float 1.5s infinite alternate;
+            border-radius: 50px;
+            padding: 10px 20px;
+            border: 2px solid #00ff00;
+            text-decoration: none;
+            color: #00ffff;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            width: 40vw;
+            height: auto;
+            margin: 0 auto;
+            text-align: center;
+            background-color: #1B4D3E; /* dark green background */
+
+        }
+
+        .floating-github-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 10px #00ffff;
+            background-color: #00ff00;
+            color: #000000;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .arrow {
+            font-size: 1.2em;
+        }
+
+
+
+
     </style>
 </head>
 <body>
     <!-- Top Navbar -->
     <nav>
-        <div><strong>SANJEEB DASH</strong></div>
+        <div><strong></strong></div>
         <ul class="navbar">
             <li><a href="/">Home</a></li>
             <li><a href="/customers">Customers</a></li>
@@ -54,7 +106,7 @@
             <li><a href="/transactions">Transactions</a></li>
             <li><a href="/analytics">Analytics</a></li>
         </ul>
-        <div><strong>122EE0515</strong></div>
+        <div><strong></strong></div>
     </nav>
 
     <!-- Page Content -->
@@ -64,7 +116,7 @@
 
     <!-- Footer Navbar -->
     <div class="footer-navbar">
-        <div>Made with ❤️ by Sanjeeb</div>
+        <div>Made with ❤️ by Sanjeeb(122EE0515), Sahil(122EE0369), Jayram(122EE0375)</div>
         <div>Tech Stacks Used: Flask, JavaScript, MySQL</div>
         <div>Course: Database Management Systems Laboratory (CS2082)</div>
         <div>Professor: Dr. S Asha</div>
