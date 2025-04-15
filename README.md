@@ -1,4 +1,8 @@
-[![Bank Management System](2.jpg)](https://sanjeeb.pythonanywhere.com/)
+<p align="center">
+  <a href="https://sanjeeb.pythonanywhere.com/">
+    <img src="2.jpg" alt="Bank Management System" />
+  </a>
+</p>
 
 # Bank Management System
 
