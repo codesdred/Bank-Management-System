@@ -1,4 +1,4 @@
-[![Bank Management System](2.png)](https://sanjeeb.pythonanywhere.com/)
+[![Bank Management System](2.jpg)](https://sanjeeb.pythonanywhere.com/)
 
 # Bank Management System
 
